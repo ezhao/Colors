@@ -1,16 +1,37 @@
 package com.herokuapp.ezhao.colors;
 
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity {
+import java.util.Random;
+
+public class MainActivity extends FragmentActivity {
+    RelativeLayout rlScreen;
+    TextView tvHex;
+    Random randomGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        rlScreen = (RelativeLayout) findViewById(R.id.rlScreen);
+        tvHex = (TextView) findViewById(R.id.tvHex);
+        randomGenerator = new Random();
+        setRandomBackground(null);
+    }
+
+    public void setRandomBackground(View view) {
+        int color = Color.argb(255, randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+        String hexColor = String.format("#%06X", (0xFFFFFF & color));
+        rlScreen.setBackgroundColor(color);
+        tvHex.setText(hexColor);
     }
 
     @Override
